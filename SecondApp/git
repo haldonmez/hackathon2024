@@ -1,0 +1,5 @@
+# CalculatorApp add README.md
+# CalculatorApp commit -m first commit
+# CalculatorApp branch -M main
+# CalculatorApp remote add origin https://github.com/Hakods/CalculatorApp.git
+# CalculatorApp push -u origin main

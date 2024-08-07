@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SecondApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="İlk sayıyı giriniz" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y1F-PG-Gcm">
+                                <rect key="frame" x="53" y="114" width="287" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="İkinci sayıyı giriniz" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wzL-EB-3bF">
+                                <rect key="frame" x="53" y="179" width="287" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YiS-39-zPI">
+                                <rect key="frame" x="26" y="245" width="66" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Topla"/>
+                                <connections>
+                                    <action selector="sumClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SVL-bw-ZF9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ar-6T-mjq">
+                                <rect key="frame" x="119" y="245" width="69" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Çıkart"/>
+                                <connections>
+                                    <action selector="minusClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xmT-JY-SkL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yi3-ff-cty">
+                                <rect key="frame" x="212" y="245" width="61" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Çarp"/>
+                                <connections>
+                                    <action selector="multiplyClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1DQ-bH-DKa"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sonuç" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="081-KR-r8g">
+                                <rect key="frame" x="91" y="324" width="211" height="37"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C7h-NP-YfM">
+                                <rect key="frame" x="294" y="245" width="49" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Böl"/>
+                                <connections>
+                                    <action selector="divideClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="J30-OI-CUP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="081-KR-r8g" firstAttribute="top" secondItem="7ar-6T-mjq" secondAttribute="bottom" constant="44" id="0qF-74-9hH"/>
+                            <constraint firstItem="7ar-6T-mjq" firstAttribute="leading" secondItem="YiS-39-zPI" secondAttribute="trailing" constant="27" id="0z5-p8-UaU"/>
+                            <constraint firstItem="wzL-EB-3bF" firstAttribute="centerX" secondItem="081-KR-r8g" secondAttribute="centerX" id="B9L-gU-Ywd"/>
+                            <constraint firstItem="Y1F-PG-Gcm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="53" id="GGl-Ut-8px"/>
+                            <constraint firstItem="7ar-6T-mjq" firstAttribute="baseline" secondItem="yi3-ff-cty" secondAttribute="baseline" id="GQ5-Yy-Dbd"/>
+                            <constraint firstItem="Y1F-PG-Gcm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="55" id="Hbg-j3-AjQ"/>
+                            <constraint firstItem="YiS-39-zPI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="26" id="IdC-HG-2aF"/>
+                            <constraint firstItem="YiS-39-zPI" firstAttribute="baseline" secondItem="7ar-6T-mjq" secondAttribute="baseline" id="M2W-We-Qs5"/>
+                            <constraint firstItem="Y1F-PG-Gcm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MzS-Nm-vab"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YiS-39-zPI" secondAttribute="bottom" constant="538" id="QgE-Ud-bca"/>
+                            <constraint firstItem="081-KR-r8g" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="91" id="Wfz-Gd-NdQ"/>
+                            <constraint firstItem="yi3-ff-cty" firstAttribute="leading" secondItem="7ar-6T-mjq" secondAttribute="trailing" constant="24" id="X6x-Qw-dCR"/>
+                            <constraint firstItem="wzL-EB-3bF" firstAttribute="top" secondItem="Y1F-PG-Gcm" secondAttribute="bottom" constant="31" id="g9a-Ia-rcR"/>
+                            <constraint firstItem="Y1F-PG-Gcm" firstAttribute="trailing" secondItem="wzL-EB-3bF" secondAttribute="trailing" id="msj-Ly-EYK"/>
+                            <constraint firstItem="Y1F-PG-Gcm" firstAttribute="leading" secondItem="wzL-EB-3bF" secondAttribute="leading" id="rOI-XQ-PLT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="081-KR-r8g" secondAttribute="bottom" constant="457" id="yz7-A0-0KM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="result" destination="081-KR-r8g" id="pkR-OK-ott"/>
+                        <outlet property="textField1" destination="Y1F-PG-Gcm" id="izH-i1-Xfx"/>
+                        <outlet property="textField2" destination="wzL-EB-3bF" id="XG6-pL-Jdt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="61.832061068702288" y="-2.1126760563380285"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
