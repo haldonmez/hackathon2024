@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import './App.css';
 
@@ -13,7 +12,13 @@ function App() {
     setResponse('');
 
     try {
-      const res = await fetch('http://localhost:5000/generate', {
+      // Dynamically set API URL depending on the environment (production or development)
+      const apiUrl =
+        process.env.NODE_ENV === 'production'
+          ? '/generate'  // Production: same domain, no need for full URL
+          : 'http://localhost:5000/generate'; // Development
+
+      const res = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
