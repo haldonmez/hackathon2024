@@ -1,0 +1,19 @@
+
+.exam-container {
+    padding-top: 60px; /* Navbar yüksekliğine göre ayar */
+    width: 100%; /* Tüm genişliği kaplar */
+    display: flex; /* Flex kutusu */
+    flex-direction: column; /* Dikey hizalama */
+    align-items: center; /* Ortaya hizala */
+}
+
+.gemini-container {
+    display: flex; /* Flex kutusu */
+    justify-content: center; /* Yatayda ortala */
+    align-items: center; /* Dikeyde ortala */
+    width: 100%; /* Genişliği %100 yap */
+    padding: 20px; /* İçerikten biraz boşluk bırak */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Gölge efekti (isteğe bağlı) */
+    background-color: #f9f9f9; /* Arka plan rengi (isteğe bağlı) */
+    border-radius: 10px; /* Kenarları yuvarla */
+}

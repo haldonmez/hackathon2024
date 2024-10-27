@@ -1,0 +1,65 @@
+.App {
+    display: flex;
+    justify-content: center; /* Ortaya hizala */
+    align-items: center; /* Dikey olarak ortala */
+    height: 100vh; /* Tüm ekran yüksekliği */
+    background-color: #f8f9fa; /* Açık arka plan rengi */
+}
+
+.container {
+    background-color: #ffffff; /* Beyaz arka plan */
+    border-radius: 8px; /* Yuvarlak köşeler */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+    padding: 20px; /* İçerik etrafında boşluk */
+    width: 90%; /* Genişlik %90 */
+    max-width: 600px; /* Maksimum genişlik */
+    text-align: center; /* Metni ortala */
+}
+
+
+
+textarea {
+    width: 100%; /* Genişliği %100 yap */
+    height: 150px; /* Yükseklik */
+    border: 1px solid #ccc; /* Kenar rengi */
+    border-radius: 5px; /* Yuvarlak köşeler */
+    padding: 10px; /* İç boşluk */
+    resize: none; /* Boyut değiştirmeyi devre dışı bırak */
+    font-size: 1rem; /* Yazı boyutu */
+    color: #34495e; /* Koyu mavi yazı rengi */
+}
+
+textarea:focus {
+    outline: none; /* Kenarları kaldır */
+    border-color: #3498db; /* Focus rengi */
+}
+
+button {
+    background-color: #3498db; /* Buton rengi */
+    color: white; /* Yazı rengi */
+    border: none; /* Kenar yok */
+    border-radius: 5px; /* Yuvarlak köşeler */
+    padding: 10px 20px; /* İç boşluk */
+    font-size: 1rem; /* Yazı boyutu */
+    cursor: pointer; /* İmleç değişimi */
+    transition: background-color 0.3s; /* Hover için geçiş efekti */
+}
+
+button:hover {
+    background-color: #2980b9; /* Hover rengi */
+}
+
+button:disabled {
+    background-color: #bdc3c7; /* Devre dışı bırakıldığında renk */
+    cursor: not-allowed; /* İmleci değiştir */
+}
+
+.output {
+    margin-top: 20px; /* Yanıt ile form arasında boşluk */
+    padding: 10px; /* İç boşluk */
+    border: 1px solid #ddd; /* Yanıtın kenarı */
+    border-radius: 5px; /* Yuvarlak köşeler */
+    background-color: #f1f1f1; /* Yanıt arka plan rengi */
+    color: #34495e; /* Koyu mavi yazı rengi */
+    text-align: left; /* Metni sola hizala */
+}
