@@ -1,65 +1,65 @@
+/* src/Gemini.css */
+
 .App {
     display: flex;
-    justify-content: center; /* Ortaya hizala */
-    align-items: center; /* Dikey olarak ortala */
-    height: 100vh; /* Tüm ekran yüksekliği */
-    background-color: #f8f9fa; /* Açık arka plan rengi */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    background-color: #f8f9fa; /* Light background color */
 }
 
 .container {
-    background-color: #ffffff; /* Beyaz arka plan */
-    border-radius: 8px; /* Yuvarlak köşeler */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
-    padding: 20px; /* İçerik etrafında boşluk */
-    width: 90%; /* Genişlik %90 */
-    max-width: 600px; /* Maksimum genişlik */
-    text-align: center; /* Metni ortala */
+    background-color: #ffffff; /* White background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px; /* Padding around content */
+    width: 90%; /* 90% width */
+    max-width: 600px; /* Max width */
+    text-align: center; /* Center-align text */
 }
 
-
-
 textarea {
-    width: 100%; /* Genişliği %100 yap */
-    height: 150px; /* Yükseklik */
-    border: 1px solid #ccc; /* Kenar rengi */
-    border-radius: 5px; /* Yuvarlak köşeler */
-    padding: 10px; /* İç boşluk */
-    resize: none; /* Boyut değiştirmeyi devre dışı bırak */
-    font-size: 1rem; /* Yazı boyutu */
-    color: #34495e; /* Koyu mavi yazı rengi */
+    width: 100%; /* Full width */
+    height: 150px; /* Height of the textarea */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Padding inside */
+    resize: none; /* Disable resizing */
+    font-size: 1rem; /* Font size */
+    color: #34495e; /* Dark blue font color */
 }
 
 textarea:focus {
-    outline: none; /* Kenarları kaldır */
-    border-color: #3498db; /* Focus rengi */
+    outline: none; /* Remove outline */
+    border-color: #3498db; /* Focus border color */
 }
 
 button {
-    background-color: #3498db; /* Buton rengi */
-    color: white; /* Yazı rengi */
-    border: none; /* Kenar yok */
-    border-radius: 5px; /* Yuvarlak köşeler */
-    padding: 10px 20px; /* İç boşluk */
-    font-size: 1rem; /* Yazı boyutu */
-    cursor: pointer; /* İmleç değişimi */
-    transition: background-color 0.3s; /* Hover için geçiş efekti */
+    background-color: #3498db; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding inside */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Hover transition */
 }
 
 button:hover {
-    background-color: #2980b9; /* Hover rengi */
+    background-color: #2980b9; /* Hover color */
 }
 
 button:disabled {
-    background-color: #bdc3c7; /* Devre dışı bırakıldığında renk */
-    cursor: not-allowed; /* İmleci değiştir */
+    background-color: #bdc3c7; /* Disabled color */
+    cursor: not-allowed; /* Change cursor */
 }
 
 .output {
-    margin-top: 20px; /* Yanıt ile form arasında boşluk */
-    padding: 10px; /* İç boşluk */
-    border: 1px solid #ddd; /* Yanıtın kenarı */
-    border-radius: 5px; /* Yuvarlak köşeler */
-    background-color: #f1f1f1; /* Yanıt arka plan rengi */
-    color: #34495e; /* Koyu mavi yazı rengi */
-    text-align: left; /* Metni sola hizala */
+    margin-top: 20px; /* Space between response and form */
+    padding: 10px; /* Padding inside */
+    border: 1px solid #ddd; /* Border around response */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f1f1f1; /* Response background color */
+    color: #34495e; /* Dark blue font color */
+    text-align: left; /* Left-align text */
 }
