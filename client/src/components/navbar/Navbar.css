@@ -1,0 +1,82 @@
+.navbar {
+    background-color: #2c3e50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%; /* Tüm genişliği kaplayacak */
+    position: fixed; /* Üstte sabit */
+    top: 0; /* Sayfanın en üstünde */
+    z-index: 1000; /* Üstte kalması için yüksek z-index */
+    transition: top 0.3s, background-color 0.3s; /* Geçiş efekti */
+}
+
+.navbar-logo {
+    font-size: 1.5rem;
+    color: white;
+    flex: 1; /* Logo alanını genişlet */
+    text-align: left; /* Sol hizala */
+    margin-left: 20px; /* Sol taraftan uzaklık */
+}
+
+/* Sınavını Paylaş başlığı için özel stil */
+.navbar-title {
+    flex: 1; /* Başlık alanını genişlet */
+    text-align: left; /* Sol hizala */
+    margin-left: 10px; /* Sol taraftan uzaklık ekle */
+}
+
+.navbar.scrolled {
+    background-color: rgba(44, 62, 80, 0.9); /* Kaydırıldığında arka plan rengi */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Kaydırıldığında gölge efekti */
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    flex: 2; /* Bağlantılar alanını genişlet */
+    justify-content: flex-end; /* Bağlantıları sağa hizala */
+    margin-right: 20px; /* Sağ taraftan uzaklık */
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    margin-left: 20px; /* Her bağlantıya soldan boşluk ekle */
+}
+
+.nav-link:hover {
+    color: #3498db;
+}
+
+/* İçeriği navbar yüksekliğine göre aşağıda başlatmak için ekstra boşluk */
+.home-container {
+    padding-top: 60px; /* Navbar yüksekliğine göre ayar */
+}
+
+/* Responsive tasarım için */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Dikey hizalama */
+        align-items: flex-start; /* Sol hizalama */
+        padding: 20px; /* Dikeyde boşluk ekle */
+    }
+    
+    .navbar-links {
+        flex-direction: column; /* Dikey listeler */
+        gap: 10px; /* Daha az boşluk */
+        margin-right: 0; /* Mobil görünümde sağdan boşluğu kaldır */
+    }
+    
+    .navbar-links li {
+        width: 100%; /* Tam genişlik */
+        text-align: center; /* Ortala */
+    }
+    
+    .nav-link {
+        padding: 10px; /* Tıklanabilir alanı artır */
+    }
+}
