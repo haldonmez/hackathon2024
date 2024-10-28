@@ -26,7 +26,44 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
         return res.status(400).json({ error: 'No image file uploaded' });
     }
 
-    const prompt = req.body.prompt || "";
+    const prompt = `
+        Sen görsel analiz yapan bir yardımcı asistansın.
+        Görevin, sana verilen her resim veya görselin hangi konu alanına ait olduğunu ve ilgili alt dallarını tespit etmektir.
+
+        Görevinin adımları:
+        1. Görseldeki her bir soruyu veya ifadeyi ayrı ayrı analiz et.
+        2. Her bir soru için aşağıdaki bilgileri sırasıyla belirle:
+
+            - **Alan**: Hangi temel konuya ait? (Örneğin: Türk Dili ve Edebiyatı, Tarih, Matematik)
+            - **Alt alan**: Alan belirlendikten sonra, bu sorunun hangi alt dala ait olduğunu belirle. (Örneğin: Matematik alanında Üçgenler, Analitik Geometri)
+            - **Alt alt alan**: Daha spesifik bir alt başlık varsa belirle. (Örneğin: Trigonometri, Fonksiyonlar)
+            - **Teorem**: Sorunun çözümü için gerekli olan teoremi belirt (örneğin: Sinüs Teoremi, Pythagoras Teoremi).
+            - **Temel bilgi**: Soruyu çözmek için bilinmesi gereken en temel bilgiyi ekle. Bu, kavram veya formül gibi bilgilerdir. (Örneğin: Üçgenlerin iç açılar toplamı, Fonksiyonun tanımı).
+
+        Kapsamlı analiz yapman gereken temel alanlar:
+        - Türk Dili ve Edebiyatı
+        - Tarih
+        - Coğrafya
+        - Matematik
+        - Geometri
+        - Fizik
+        - Kimya
+        - Biyoloji
+        - Felsefe, Mantık, Sosyoloji, Psikoloji
+        - Din Kültürü ve Ahlak Bilgisi
+
+        **Örnek format**:
+        - Görselde ayrı ayrı bulunan soru sayısı: 3
+        - Alan: Geometri
+        - Alt alan: Üçgenler
+        - Alt alt alan: Trigonometri
+        - Teorem: Sinüs Teoremi
+        - Temel bilgi: Üçgenlerde açılar ve kenarlar arasındaki ilişkiler
+
+        Bu adımları dikkatle izleyerek görseldeki her bir soru için kapsamlı ve detaylı analiz yap.
+        Görsel Analizi:
+    `;
+    
     const mimeType = req.file.mimetype;
     const imagePath = req.file.path;
 
@@ -38,16 +75,24 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
         });
         const fileUri = uploadResponse.file.uri;
 
-        // Step 2: Use the file URI and text prompt in the generateContent request
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const result = await model.generateContent([
-            { fileData: { mimeType, fileUri } },
-            { text: prompt },
-        ]);
+        // Step 2: Use the prompt and image to generate content
+        const model = genAI.getGenerativeModel({
+            model: "gemini-1.5-flash"
+        });
+
+        // Generate content with both text and image
+        const result = await model.generateContent(
+            [
+                { fileData: { mimeType, fileUri } },
+                { text: prompt },
+            ]
+        );
+
+        
 
         // Get the generated content from the response
         const text = result.response.text();
-
+        console.log(text)
         // Clean up the uploaded image file after processing
         fs.unlinkSync(imagePath);
 
