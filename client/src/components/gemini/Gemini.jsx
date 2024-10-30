@@ -1,34 +1,30 @@
-// src/Gemini.js
-import React, { useState } from 'react';
+// Gemini.jsx
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Gemini.css';
 
 function Gemini() {
-    const [prompt, setPrompt] = useState('');      // User's optional prompt
-    const [image, setImage] = useState(null);      // File to be uploaded
-    const [response, setResponse] = useState('');  // Response from the API
-    const [loading, setLoading] = useState(false); // Loading state for submission
+    const [image, setImage] = useState(null); // Selected image file
+    const [loading, setLoading] = useState(false); // Loading state
+    const navigate = useNavigate();
+    const fileInputRef = useRef(null); // Reference to the hidden file input
 
-    // Handle file selection
-    const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
+    // Trigger file input when clicking "Start Analysis" button
+    const handleAnalyzeClick = () => {
+        fileInputRef.current.click(); // Open file selector
     };
 
-    // Handle form submission
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // Handle file selection
+    const handleImageChange = async (e) => {
+        const selectedImage = e.target.files[0];
+        if (!selectedImage) return;
 
-        // Ensure an image is selected
-        if (!image) {
-            alert("Please upload an image!");
-            return;
-        }
-
+        setImage(selectedImage);
         setLoading(true);
-        setResponse('');
 
+        // Create form data for the image upload
         const formData = new FormData();
-        formData.append('prompt', prompt);  // Optional prompt text
-        formData.append('image', image);    // Image file
+        formData.append('image', selectedImage);
 
         try {
             const apiUrl = process.env.NODE_ENV === 'production'
@@ -37,14 +33,14 @@ function Gemini() {
 
             const res = await fetch(apiUrl, {
                 method: 'POST',
-                body: formData, // FormData handles file and text data together
+                body: formData,
             });
 
             const data = await res.json();
-            setResponse(data.response);
+            navigate('/response', { state: { response: data.response } }); // Pass data to new page
         } catch (error) {
             console.error(error);
-            setResponse('Error: Unable to get response from the AI.');
+            alert("Failed to get response from the AI.");
         } finally {
             setLoading(false);
         }
@@ -53,29 +49,21 @@ function Gemini() {
     return (
         <div className="App">
             <div className="container">
-                <h1>AI Image Generator</h1>
-                <form onSubmit={handleSubmit}>
-                    <textarea
-                        value={prompt}
-                        onChange={(e) => setPrompt(e.target.value)}
-                        placeholder="Enter an optional prompt..."
-                    />
-                    <input 
-                        type="file" 
-                        accept="image/*" 
-                        onChange={handleImageChange} 
-                    />
-                    <button type="submit" disabled={loading}>
-                        {loading ? 'Processing...' : 'Upload Image'}
-                    </button>
-                </form>
-                {response && (
-                    <div className="output">
-                        <strong>Response:</strong>
-                        <p>{response}</p>
-                    </div>
-                )}
+                <div className="line"></div>
+                <button onClick={handleAnalyzeClick} disabled={loading}>
+                    {loading ? 'Processing...' : 'Start Analysis'}
+                </button>
+                <div className="line"></div>
             </div>
+
+            {/* Hidden file input for image selection */}
+            <input 
+                type="file" 
+                accept="image/*" 
+                style={{ display: 'none' }} 
+                ref={fileInputRef}
+                onChange={handleImageChange} // Handle image selection
+            />
         </div>
     );
 }

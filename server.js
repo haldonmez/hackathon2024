@@ -34,11 +34,11 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
         1. Görseldeki her bir soruyu veya ifadeyi ayrı ayrı analiz et.
         2. Her bir soru için aşağıdaki bilgileri sırasıyla belirle:
 
-            - **Alan**: Hangi temel konuya ait? (Örneğin: Türk Dili ve Edebiyatı, Tarih, Matematik)
-            - **Alt alan**: Alan belirlendikten sonra, bu sorunun hangi alt dala ait olduğunu belirle. (Örneğin: Matematik alanında Üçgenler, Analitik Geometri)
-            - **Alt alt alan**: Daha spesifik bir alt başlık varsa belirle. (Örneğin: Trigonometri, Fonksiyonlar)
-            - **Teorem**: Sorunun çözümü için gerekli olan teoremi belirt (örneğin: Sinüs Teoremi, Pythagoras Teoremi).
-            - **Temel bilgi**: Soruyu çözmek için bilinmesi gereken en temel bilgiyi ekle. Bu, kavram veya formül gibi bilgilerdir. (Örneğin: Üçgenlerin iç açılar toplamı, Fonksiyonun tanımı).
+            - *Alan*: Hangi temel konuya ait? (Örneğin: Türk Dili ve Edebiyatı, Tarih, Matematik)
+            - *Alt alan*: Alan belirlendikten sonra, bu sorunun hangi alt dala ait olduğunu belirle. (Örneğin: Matematik alanında Üçgenler, Analitik Geometri)
+            - *Alt alt alan*: Daha spesifik bir alt başlık varsa belirle. (Örneğin: Trigonometri, Fonksiyonlar)
+            - *Teorem*: Sorunun çözümü için gerekli olan teoremi belirt (örneğin: Sinüs Teoremi, Pythagoras Teoremi).
+            - *Temel bilgi*: Soruyu çözmek için bilinmesi gereken en temel bilgiyi ekle. Bu, kavram veya formül gibi bilgilerdir. (Örneğin: Üçgenlerin iç açılar toplamı, Fonksiyonun tanımı).
 
         Kapsamlı analiz yapman gereken temel alanlar:
         - Türk Dili ve Edebiyatı
@@ -52,7 +52,7 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
         - Felsefe, Mantık, Sosyoloji, Psikoloji
         - Din Kültürü ve Ahlak Bilgisi
 
-        **Örnek format**:
+        *Örnek format*:
         - Görselde ayrı ayrı bulunan soru sayısı: 3
         - Alan: Geometri
         - Alt alan: Üçgenler
@@ -115,5 +115,5 @@ if (process.env.NODE_ENV === 'production') {
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log("Server is running on port ${PORT}");
 });

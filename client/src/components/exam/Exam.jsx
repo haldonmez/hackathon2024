@@ -1,7 +1,9 @@
 import React from 'react';
 import Navbar from '../navbar/Navbar';
 import Gemini from '../gemini/Gemini';
+
 import './Exam.css';
+
 
 const Exam = () => {
     return (
@@ -15,3 +17,5 @@ const Exam = () => {
 }
 
 export default Exam;
+
+    

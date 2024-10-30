@@ -13,8 +13,8 @@ const Home = () => {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        nextArrow: <Arrow className="slick-next" />,
-        prevArrow: <Arrow className="slick-prev" />,
+        nextArrow: <Arrow direction="next" />,
+        prevArrow: <Arrow direction="prev" />,
         autoplay: false,
     };
 
@@ -34,8 +34,8 @@ const Home = () => {
                     </div>
                 </Slider>
             </div>
-            <h2>Home Page</h2>
-            <p>Welcome to the AI Text Generator App!</p>
+            <h2>DERS ANALİZİ</h2>
+            <p>Derslerini Gemini yapay zeka teknolojisi ile analiz edelim. Eksikliklerini gider, doğrularını arttır.!</p>
         </div>
     );
 };

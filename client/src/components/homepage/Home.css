@@ -1,59 +1,39 @@
 .home-container {
-    padding-top: 60px; /* Navbar ile içerik arasında boşluk */
+    padding-top: 80px; /* Navbar ile içerik arasında boşluk */
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100vh; /* Tüm ekran yüksekliği */
     overflow: hidden; /* Taşmaları gizle */
     width: 100vw; /* Tüm ekran genişliği */
+    background-color: #EEEEEE;
 }
 
 .slider-wrapper {
-    width: 70%; /* Slider genişliği %100 */
-    height: 70vh; /* Slider yüksekliği */
+    width: 90%; /* Slider genişliği biraz daha arttırıldı */
+    height: 60vh; /* Slider yüksekliği arttırıldı */
+    margin-top: 20px;
     position: relative; /* İçindeki oklar için konum ayarı */
     overflow: hidden; /* Slider taşmalarını gizle */
 }
-
-.slick-prev, .slick-next {
-    z-index: 1000; /* Okların üstte görünmesi için z-index artırıldı */
-    width: 40px; /* Ok genişliği */
-    height: 40px; /* Ok yüksekliği */
-    background-color: rgba(255, 255, 255, 0.7); /* Okların arka plan rengi */
-    border-radius: 50%; /* Yuvarlak görünüm için */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s; /* Hover efekti için geçiş */
-    cursor: pointer; /* Tıklanabilir hale getirme */
-    position: absolute; /* Mutlak konumlandırma */
-}
-
-.slick-prev {
-    left: 0; /* Sol kenara tam yapışık */
-    margin-left: 10px; /* Kenardan biraz boşluk */
-}
-
-.slick-next {
-    right: 0; /* Sağ kenara tam yapışık */
-    margin-right: 10px; /* Kenardan biraz boşluk */
-}
-
-.slick-prev:hover, .slick-next:hover {
-    background-color: rgba(255, 255, 255, 1); /* Hover rengi */
-}
-
 .slick-slide img {
     border-radius: 10px; /* Görsellerin köşelerini yuvarlatma */
-    width: 100%; /* Görsellerin genişliğini %100 yaparak boşluk bırakma */
-    height: 100%; /* Yüksekliği %100 yaparak tam olarak kaplat */
+    width: 100%; /* Görselin genişliğini slider alanına tam oturtma */
+    height: auto; /* Yüksekliği otomatik ayarlama */
+    max-height: 100%; /* Maksimum yüksekliği slider alanının %100'ü ile sınırla */
     object-fit: cover; /* Görselin alanı kaplamasını sağla */
+    object-position: center; /* Görselin ortasını merkezde tutma */
 }
+
 
 h2, p {
     margin: 10px 0;
     text-align: center;
-    color: #2c3e50;
+    color: #393E46;
     width: 100%; /* Ekranın tamamını kaplasın */
     padding: 0 20px; /* Yanlarda boşluk bırak */
+}
+/* Aşağı kaydırmayı engellemek için */
+body {
+    overflow: hidden; /* Tüm sayfayı kaydırmayı engelle */
 }
