@@ -1,17 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../navbar/Navbar';
 import './Home.css';
 
 const Home = () => {
+    const navigate = useNavigate();
+
+    // Function to handle button click and navigate to /exam
+    const handleStartClick = () => {
+        navigate('/exam');
+    };
+
     return (
         <div className="home-container">
             <div className='navbar-container'>
-            <Navbar />
+                <Navbar />
             </div>
             <header className="hero-section">
                 <h1>Geleceğini İnşa Et!</h1>
                 <p>Gemini yapay zekasıyla başarı yolculuğuna çık. Hedeflerine ulaşmak için ilk adımı at!</p>
-                <button className="cta-button">Hemen Başla</button>
+                <button className="cta-button" onClick={handleStartClick}>Hemen Başla</button>
             </header>
             <section className="motivational-section">
                 <div className="motive-card">
