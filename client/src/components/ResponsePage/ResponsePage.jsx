@@ -14,7 +14,7 @@ function ResponsePage() {
             <div className="response-output">
                 <p>{response}</p>
             </div>
-            <button onClick={() => navigate(-1)}>Back</button>
+            <button onClick={() => navigate(-1)}>Geri Dön</button>
         </div>
     );
 }

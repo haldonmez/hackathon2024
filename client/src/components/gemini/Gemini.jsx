@@ -51,7 +51,7 @@ function Gemini() {
             <div className="container">
                 <div className="line"></div>
                 <button onClick={handleAnalyzeClick} disabled={loading}>
-                    {loading ? 'Processing...' : 'Start Analysis'}
+                    {loading ? 'Analiz Yapılıyor...' : 'Analize Başla'}
                 </button>
                 <div className="line"></div>
             </div>

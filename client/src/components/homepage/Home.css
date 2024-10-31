@@ -1,39 +1,150 @@
+/* Sayfanın overflow ayarları */
+body, html {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar kapsayıcısı için düzenlemeler */
+.navbar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
 .home-container {
-    padding-top: 80px; /* Navbar ile içerik arasında boşluk */
+    padding-top: 60px; /* Navbar'ın sabit konumundan dolayı içerik aşağıda başlar */
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    font-family: 'Arial', sans-serif;
+    color: #393E46;
+    background-color: #EEEEEE;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 100vh; /* Tüm ekran yüksekliği */
-    overflow: hidden; /* Taşmaları gizle */
-    width: 100vw; /* Tüm ekran genişliği */
-    background-color: #EEEEEE;
 }
 
-.slider-wrapper {
-    width: 90%; /* Slider genişliği biraz daha arttırıldı */
-    height: 60vh; /* Slider yüksekliği arttırıldı */
-    margin-top: 20px;
-    position: relative; /* İçindeki oklar için konum ayarı */
-    overflow: hidden; /* Slider taşmalarını gizle */
-}
-.slick-slide img {
-    border-radius: 10px; /* Görsellerin köşelerini yuvarlatma */
-    width: 100%; /* Görselin genişliğini slider alanına tam oturtma */
-    height: auto; /* Yüksekliği otomatik ayarlama */
-    max-height: 100%; /* Maksimum yüksekliği slider alanının %100'ü ile sınırla */
-    object-fit: cover; /* Görselin alanı kaplamasını sağla */
-    object-position: center; /* Görselin ortasını merkezde tutma */
-}
-
-
-h2, p {
-    margin: 10px 0;
+/* Kahraman (Hero) bölümü */
+.hero-section {
     text-align: center;
-    color: #393E46;
-    width: 100%; /* Ekranın tamamını kaplasın */
-    padding: 0 20px; /* Yanlarda boşluk bırak */
+    padding: 2rem 1rem; /* Önceki değer 4rem 1rem idi, daha az yer kaplaması için azaltıldı */
+    background: #393E46;
+    color: #EEEEEE;
+    border-bottom: 5px solid #00ADB5;
+    animation: fadeIn 1.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* Sayfanın %50'sini kapsayacak şekilde ayarlandı */
 }
-/* Aşağı kaydırmayı engellemek için */
-body {
-    overflow: hidden; /* Tüm sayfayı kaydırmayı engelle */
+
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    animation: slideDown 1s ease-out;
+}
+
+.hero-section p {
+    font-size: 1.3rem;
+    max-width: 650px;
+    margin: 0 auto 2rem;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.cta-button {
+    padding: 0.75rem 2rem;
+    font-size: 1.2rem;
+    background-color: #00ADB5;
+    border: none;
+    border-radius: 30px;
+    color: #222831;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+    font-weight: bold;
+    animation: bounceIn 1.5s ease;
+}
+
+.cta-button:hover {
+    background-color: #EEEEEE;
+    color: #393E46;
+    transform: scale(1.05);
+}
+
+.motivational-section {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    animation: fadeInSection 1s ease-in-out;
+}
+
+.motive-card {
+    max-width: 300px;
+    background: #EEEEEE;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.3s;
+    color: #393E46;
+    border-top: 4px solid #00ADB5;
+    animation: fadeSlideIn 1.5s ease-out;
+}
+
+.motive-card:hover {
+    transform: translateY(-5px);
+}
+
+.motive-card h2 {
+    font-size: 1.8rem;
+    color: #00ADB5;
+    margin-bottom: 1rem;
+}
+
+.motive-card p {
+    font-size: 1rem;
+    color: #393E46;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInSection {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .motivational-section {
+        flex-direction: column;
+        align-items: center;
+    }
 }

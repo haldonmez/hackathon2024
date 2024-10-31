@@ -13,7 +13,7 @@
     align-items: center; /* Yatay ortalama */
     width: 100%; /* İçeriğin tam genişlik kaplamasını sağlar */
     text-align: center; /* Metni ortala */
-    background-color: #f4f4f4; /* İçerik arka plan rengi */
+    background-color: white; /* İçerik arka plan rengi */
     border-radius: 10px; /* Köşe yuvarlatma */
     padding: 20px; /* İçerik etrafında boşluk */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Gölgelendirme */
