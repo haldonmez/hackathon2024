@@ -19,6 +19,8 @@ const upload = multer({ dest: 'uploads/' });
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
+
 
 // API Endpoint to handle image uploads and interact with Gemini model
 app.post('/upload-image', upload.single('image'), async (req, res) => {
@@ -36,6 +38,7 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
 
             - *Alan*: Hangi temel konuya ait? (Örneğin: Türk Dili ve Edebiyatı, Tarih, Matematik)
             - *Alt alan*: Alan belirlendikten sonra, bu sorunun hangi alt dala ait olduğunu belirle. (Örneğin: Matematik alanında Üçgenler, Analitik Geometri)
+            - *Soru Numarası*: Sayfada tanımlanan şekilde sorunun numarası belirle.(Örneğin: Soru 3, Soru 8, Soru 24)
             - *Alt alt alan*: Daha spesifik bir alt başlık varsa belirle. (Örneğin: Trigonometri, Fonksiyonlar)
             - *Teorem*: Sorunun çözümü için gerekli olan teoremi belirt (örneğin: Sinüs Teoremi, Pythagoras Teoremi).
             - *Temel bilgi*: Soruyu çözmek için bilinmesi gereken en temel bilgiyi ekle. Bu, kavram veya formül gibi bilgilerdir. (Örneğin: Üçgenlerin iç açılar toplamı, Fonksiyonun tanımı).
@@ -55,6 +58,7 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
         *Örnek format*:
         - Görselde ayrı ayrı bulunan soru sayısı: 3
         - Alan: Geometri
+        - Soru Numarası: 25
         - Alt alan: Üçgenler
         - Alt alt alan: Trigonometri
         - Teorem: Sinüs Teoremi
@@ -92,12 +96,14 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
 
         // Get the generated content from the response
         const text = result.response.text();
-        console.log(text)
+
+        const jsonResponse = { response: text };
+
         // Clean up the uploaded image file after processing
         fs.unlinkSync(imagePath);
 
         // Send the response text back to the client
-        res.json({ response: text });
+        res.json(jsonResponse);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to generate content from image and text.' });
