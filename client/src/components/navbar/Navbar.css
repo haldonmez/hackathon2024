@@ -1,44 +1,41 @@
+/* Navbar genel stilleri */
 .navbar {
     background-color: #00ADB5;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    width: 100%; /* Tüm genişliği kaplayacak */
-    position: fixed; /* Üstte sabit */
-    top: 0; /* Sayfanın en üstünde */
-    z-index: 1000; /* Üstte kalması için yüksek z-index */
-    transition: top 0.3s, background-color 0.3s; /* Geçiş efekti */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s;
 }
 
-
+/* Navbar logo ve başlık */
 .navbar-logo {
     font-size: 1.5rem;
     color: white;
-    flex: 1; /* Logo alanını genişlet */
-    text-align: left; /* Sol hizala */
-    margin-left: 20px; /* Sol taraftan uzaklık */
 }
 
-/* Sınavını Paylaş başlığı için özel stil */
 .navbar-title {
-    flex: 1; /* Başlık alanını genişlet */
-    text-align: left; /* Sol hizala */
-    margin-left: 10px; /* Sol taraftan uzaklık ekle */
+    margin-left: 10px;
 }
 
+/* Scroll durumunda navbar */
 .navbar.scrolled {
-    background-color: rgba(44, 62, 80, 0.9); /* Kaydırıldığında arka plan rengi */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Kaydırıldığında gölge efekti */
+    background-color: rgba(44, 62, 80, 0.9);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Navbar linkleri */
 .navbar-links {
     list-style: none;
     display: flex;
     gap: 20px;
-    flex: 2; /* Bağlantılar alanını genişlet */
-    justify-content: flex-end; /* Bağlantıları sağa hizala */
-    margin-right: 20px; /* Sağ taraftan uzaklık */
+    flex: 2;
+    justify-content: flex-end;
+    margin-right: 20px;
 }
 
 .nav-link {
@@ -46,38 +43,66 @@
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.3s ease;
-    margin-left: 20px; /* Her bağlantıya soldan boşluk ekle */
 }
 
 .nav-link:hover {
     color: #222831;
 }
 
-/* İçeriği navbar yüksekliğine göre aşağıda başlatmak için ekstra boşluk */
-.home-container {
-    padding-top: 60px; /* Navbar yüksekliğine göre ayar */
+/* Mobil menü için hamburger simgesi */
+.menu-icon {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
 }
 
-/* Responsive tasarım için */
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: 0.3s;
+}
+
+/* Menü açıldığında hamburger animasyonu */
+.menu-icon.open .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-icon.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-icon.open .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Menü bağlantıları gizleme ve açma */
+.navbar-links {
+    display: flex;
+}
+
+.navbar-links.open {
+    display: block;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #00ADB5;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column; /* Dikey hizalama */
-        align-items: flex-start; /* Sol hizalama */
-        padding: 20px; /* Dikeyde boşluk ekle */
-    }
-    
+    /* Mobil görünümde navbar bağlantıları */
     .navbar-links {
-        flex-direction: column; /* Dikey listeler */
-        gap: 10px; /* Daha az boşluk */
-        margin-right: 0; /* Mobil görünümde sağdan boşluğu kaldır */
+        display: none; /* Başlangıçta gizli */
+        flex-direction: column;
+        gap: 15px;
+        margin: 10px 0;
     }
-    
-    .navbar-links li {
-        width: 100%; /* Tam genişlik */
-        text-align: center; /* Ortala */
-    }
-    
-    .nav-link {
-        padding: 10px; /* Tıklanabilir alanı artır */
+
+    .menu-icon {
+        display: flex; /* Hamburger simgesi görünür */
     }
 }
