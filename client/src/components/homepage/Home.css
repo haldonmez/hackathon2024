@@ -7,11 +7,8 @@ body, html {
 
 /* Navbar kapsayıcısı için düzenlemeler */
 .navbar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+    margin: -20px;
 }
 
 .home-container {
@@ -22,7 +19,7 @@ body, html {
     font-family: 'Arial', sans-serif;
     color: #393E46;
     background-color: #EEEEEE;
-    height: 100vh;
+    min-height: 100vh;;
     display: flex;
     flex-direction: column;
 }
