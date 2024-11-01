@@ -1,9 +1,4 @@
 /* src/App.css */
-
-/* App.css veya index.css dosyasına ekleyin */
-@import '~slick-carousel/slick/slick.css';
-@import '~slick-carousel/slick/slick-theme.css';
-
 .App {
   display: flex;
   flex-direction: column;

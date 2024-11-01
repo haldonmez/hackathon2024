@@ -1,23 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; // react-router-dom eklenmeli
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
+    const [scrolling, setScrolling] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const handleScroll = () => {
+        setScrolling(window.scrollY > 50);
+    };
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <nav className="navbar">
+        <nav className={`navbar ${scrolling ? 'scrolled' : ''}`}>
             <div className="navbar-logo">
-                <h1>Sınavını Paylaş!</h1>
+                <h1 className="navbar-title">Sınavını Paylaş!</h1>
             </div>
-            <ul className="navbar-links">
-                <li>
-                    <Link to="/home" className="nav-link">Ana Sayfa</Link>
-                </li>
-                <li>
-                    <Link to="/share" className="nav-link">Sınavını Paylaş</Link>
-                </li>
-                <li>
-                    <Link to="/whoareus" className="nav-link">Biz Kimiz?</Link>
-                </li>
+            <div className="menu-icon" onClick={toggleMenu}>
+                {/* Üç çizgi ikonu */}
+                <div className={`bar ${menuOpen ? 'open' : ''}`}></div>
+                <div className={`bar ${menuOpen ? 'open' : ''}`}></div>
+                <div className={`bar ${menuOpen ? 'open' : ''}`}></div>
+            </div>
+            <ul className={`navbar-links ${menuOpen ? 'open' : ''}`}>
+                <li><Link className="nav-link" to="/">Ana Sayfa</Link></li>
+                <li><Link className="nav-link" to="/exam">Sınavını Paylaş</Link></li>
+                <li><Link className="nav-link" to="/whoareus">Biz Kimiz?</Link></li>
             </ul>
         </nav>
     );
