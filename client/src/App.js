@@ -14,6 +14,7 @@ function App() {
         <Route path="/exam" element={<Exam />} />
         <Route path="/whoareus" element={<Whoareus />} />
         <Route path="/response" element={<ResponsePage />} />
+        
 
         {/* Diğer route'larınızı buraya ekleyebilirsiniz */}
       </Routes>

@@ -1,4 +1,3 @@
-// server.js
 const dotenv = require('dotenv');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { GoogleAIFileManager } = require('@google/generative-ai/server');
@@ -19,8 +18,6 @@ const upload = multer({ dest: 'uploads/' });
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
-
 
 // API Endpoint to handle image uploads and interact with Gemini model
 app.post('/upload-image', upload.single('image'), async (req, res) => {
@@ -38,7 +35,6 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
 
             - *Alan*: Hangi temel konuya ait? (Örneğin: Türk Dili ve Edebiyatı, Tarih, Matematik)
             - *Alt alan*: Alan belirlendikten sonra, bu sorunun hangi alt dala ait olduğunu belirle. (Örneğin: Matematik alanında Üçgenler, Analitik Geometri)
-            - *Soru Numarası*: Sayfada tanımlanan şekilde sorunun numarası belirle.(Örneğin: Soru 3, Soru 8, Soru 24)
             - *Alt alt alan*: Daha spesifik bir alt başlık varsa belirle. (Örneğin: Trigonometri, Fonksiyonlar)
             - *Teorem*: Sorunun çözümü için gerekli olan teoremi belirt (örneğin: Sinüs Teoremi, Pythagoras Teoremi).
             - *Temel bilgi*: Soruyu çözmek için bilinmesi gereken en temel bilgiyi ekle. Bu, kavram veya formül gibi bilgilerdir. (Örneğin: Üçgenlerin iç açılar toplamı, Fonksiyonun tanımı).
@@ -58,7 +54,6 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
         *Örnek format*:
         - Görselde ayrı ayrı bulunan soru sayısı: 3
         - Alan: Geometri
-        - Soru Numarası: 25
         - Alt alan: Üçgenler
         - Alt alt alan: Trigonometri
         - Teorem: Sinüs Teoremi
@@ -67,7 +62,7 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
         Bu adımları dikkatle izleyerek görseldeki her bir soru için kapsamlı ve detaylı analiz yap.
         Görsel Analizi:
     `;
-    
+
     const mimeType = req.file.mimetype;
     const imagePath = req.file.path;
 
@@ -92,23 +87,49 @@ app.post('/upload-image', upload.single('image'), async (req, res) => {
             ]
         );
 
-        
-
         // Get the generated content from the response
         const text = result.response.text();
-
-        const jsonResponse = { response: text };
-
+        
+        // Parse the response into JSON structure for clarity
+        const parsedResponse = parseResponseToJSON(text);
+        
         // Clean up the uploaded image file after processing
         fs.unlinkSync(imagePath);
 
         // Send the response text back to the client
-        res.json(jsonResponse);
+        res.json({ response: parsedResponse });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to generate content from image and text.' });
     }
 });
+
+// Helper function to parse response text into JSON format
+function parseResponseToJSON(text) {
+    const lines = text.split('\n').filter(line => line.trim() !== '');
+    const responseObj = [];
+    let current = {};
+
+    lines.forEach(line => {
+        if (line.includes('Alan:')) {
+            if (Object.keys(current).length > 0) responseObj.push(current);
+            current = { alan: line.split(':')[1].trim() };
+        } else if (line.includes('Alt alan:')) {
+            current.altAlan = line.split(':')[1].trim();
+        } else if (line.includes('Alt alt alan:')) {
+            current.altAltAlan = line.split(':')[1].trim();
+        } else if (line.includes('Teorem:')) {
+            current.teorem = line.split(':')[1].trim();
+        } else if (line.includes('Temel bilgi:')) {
+            current.temelBilgi = line.split(':')[1].trim();
+        }
+    });
+
+    // Add the last item if it exists
+    if (Object.keys(current).length > 0) responseObj.push(current);
+
+    return responseObj;
+}
 
 // Serve the React app (for production)
 if (process.env.NODE_ENV === 'production') {
@@ -121,5 +142,5 @@ if (process.env.NODE_ENV === 'production') {
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log("Server is running on port ${PORT}");
+    console.log(`Server is running on port ${PORT}`);
 });

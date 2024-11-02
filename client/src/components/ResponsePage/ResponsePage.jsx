@@ -1,48 +1,67 @@
-// ResponsePage.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Navbar from '../navbar/Navbar';
 import './ResponsePage.css';
+
+const ALANLAR = [
+    "Türk Dili ve Edebiyatı",
+    "Tarih",
+    "Coğrafya",
+    "Matematik",
+    "Geometri",
+    "Fizik",
+    "Kimya",
+    "Biyoloji",
+    "Felsefe",
+    "Mantık",
+    "Sosyoloji",
+    "Psikoloji",
+    "Din Kültürü ve Ahlak Bilgisi"
+];
 
 function ResponsePage() {
     const location = useLocation();
     const navigate = useNavigate();
-    const response = location.state?.response || "No response available.";
+    const response = location.state?.response || [];
 
-    // Parsing response into a JSON structure keyed by Alan values
-    const parseResponseToJson = (responseText) => {
-        const sections = responseText.split(/(?=Alan: )/);
-        return sections.reduce((acc, section) => {
-            const alanMatch = section.match(/Alan: (.+?)(?:\n|$)/);
-            if (alanMatch) {
-                const alan = alanMatch[1].trim();
-                if (!acc[alan]) acc[alan] = [];
-                
-                // Add structured data (other lines in the section)
-                acc[alan].push(section.trim());
-            }
-            return acc;
-        }, {});
-    };
+    // Görünür olacak alanı belirlemek için kullanılan bir state
+    const [visibleAlan, setVisibleAlan] = React.useState(null);
 
-    const structuredData = parseResponseToJson(response);
-    const [selectedAlan, setSelectedAlan] = useState(Object.keys(structuredData)[0]);
+    // İlk renderda kontrol et
+    React.useEffect(() => {
+        const alanFromResponse = response.find(item => ALANLAR.includes(item.alan));
+        if (alanFromResponse) {
+            setVisibleAlan(alanFromResponse.alan); // Eğer varsa, alanı ayarla
+        }
+    }, [response]);
 
     return (
-        <div className="App">
-            <h2 className="examh2">Analysis Results</h2>
-            <div className="sidebar">
-                {Object.keys(structuredData).map((alan, index) => (
-                    <button key={index} onClick={() => setSelectedAlan(alan)}>
-                        {alan}
-                    </button>
-                ))}
-            </div>
-            <div className="content">
-                {structuredData[selectedAlan]?.map((entry, idx) => (
-                    <p key={idx} className="alan-entry">{entry}</p>
-                ))}
-            </div>
-            <button onClick={() => navigate(-1)}>Geri Dön</button>
+        <div className="uygulama">
+            <Navbar /> {/* Navbar bileşeni ekleniyor */}
+            <h2 className="baslik">Analiz Sonuçları</h2>
+            {response.length > 0 ? (
+                <div className="kutu-container">
+                    {response.map((item, index) => (
+                        <div key={index} className="yanit-alani">
+                            <ul>
+                                <li><strong><span className="alan-label">Alan:</span></strong> {item.alan}</li>
+                                <li><strong>Alt Alan:</strong> {item.altAlan}</li>
+                                <li><strong>Alt Alt Alan:</strong> {item.altAltAlan}</li>
+                                <li><strong>Teorem:</strong> {item.teorem}</li>
+                                <li><strong>Temel Bilgi:</strong> {item.temelBilgi}</li>
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p>No response available.</p>
+            )}
+            {visibleAlan && ( // Eğer bir alan belirlenmişse butonu göster
+                <div className="alan-button-container"> {/* Buton için ayrı bir alan */}
+                    <button className="alan-button">{visibleAlan}</button>
+                </div>
+            )}
+            <button className='b' onClick={() => navigate(-1)}>Geri Dön</button>
         </div>
     );
 }
