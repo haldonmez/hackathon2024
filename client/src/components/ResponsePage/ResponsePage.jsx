@@ -24,40 +24,65 @@ function ResponsePage() {
     const navigate = useNavigate();
     const response = location.state?.response || [];
 
-    // Görünür olacak alanı belirlemek için kullanılan bir state
+    // Log the full location state and response for debugging
+    console.log("Location state:", location.state);
+    console.log("Response received:", response);
+
     const [visibleAlan, setVisibleAlan] = React.useState(null);
 
-    // İlk renderda kontrol et
     React.useEffect(() => {
-        const alanFromResponse = response.find(item => ALANLAR.includes(item.alan));
+        const alanFromResponse = response
+            .flatMap(page => page.sorular || [])
+            .find(question => ALANLAR.includes(question?.alan));
+        
         if (alanFromResponse) {
-            setVisibleAlan(alanFromResponse.alan); // Eğer varsa, alanı ayarla
+            setVisibleAlan(alanFromResponse.alan);
         }
     }, [response]);
 
     return (
         <div className="uygulama">
-            <Navbar /> {/* Navbar bileşeni ekleniyor */}
+            <Navbar />
             <h2 className="baslik">Analiz Sonuçları</h2>
             {response.length > 0 ? (
                 <div className="kutu-container">
-                    {response.map((item, index) => (
-                        <div key={index} className="yanit-alani">
-                            <ul>
-                                <li><strong><span className="alan-label">Alan:</span></strong> {item.alan}</li>
-                                <li><strong>Alt Alan:</strong> {item.altAlan}</li>
-                                <li><strong>Alt Alt Alan:</strong> {item.altAltAlan}</li>
-                                <li><strong>Teorem:</strong> {item.teorem}</li>
-                                <li><strong>Temel Bilgi:</strong> {item.temelBilgi}</li>
-                            </ul>
+                    {response.map((page, pageIndex) => (
+                        <div key={pageIndex} className="yanit-alani">
+                            <h3>Sayfa Numarası: {page.sayfaNumarasi || "N/A"}</h3>
+                            {(page.sorular || []).length > 0 ? (
+                                (page.sorular || []).map((question, questionIndex) => (
+                                    <ul key={questionIndex} className="bilgi-grubu">
+                                        <li className="alan">
+                                            <strong>Soru Numarası:</strong> {question.soruNumarasi || "N/A"}
+                                        </li>
+                                        <li className="alt-alan">
+                                            <strong>Alan:</strong> {question.alan || "N/A"}
+                                        </li>
+                                        <li className="alt-alan">
+                                            <strong>Alt Alan:</strong> {question.altAlan || "N/A"}
+                                        </li>
+                                        <li className="alt-alan">
+                                            <strong>Alt Alt Alan:</strong> {question.altAltAlan || "N/A"}
+                                        </li>
+                                        <li className="alt-alan">
+                                            <strong>Teorem:</strong> {question.teorem || "N/A"}
+                                        </li>
+                                        <li className="alt-alan">
+                                            <strong>Temel Bilgi:</strong> {question.temelBilgi || "N/A"}
+                                        </li>
+                                    </ul>
+                                ))
+                            ) : (
+                                <p>No questions available for this page.</p>
+                            )}
                         </div>
                     ))}
                 </div>
             ) : (
                 <p>No response available.</p>
             )}
-            {visibleAlan && ( // Eğer bir alan belirlenmişse butonu göster
-                <div className="alan-button-container"> {/* Buton için ayrı bir alan */}
+            {visibleAlan && (
+                <div className="alan-button-container">
                     <button className="alan-button">{visibleAlan}</button>
                 </div>
             )}

@@ -79,3 +79,11 @@
   background-color: #393E46;
   transform: scale(1.05);
 }
+
+.bilgi-grubu {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #e3f2fd;
+  border-radius: 8px;
+  list-style-type: none;
+}

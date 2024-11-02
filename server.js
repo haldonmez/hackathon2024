@@ -4,8 +4,8 @@ const { GoogleAIFileManager } = require('@google/generative-ai/server');
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer'); // For file uploads
-const path = require('path');
 const fs = require('fs');
+const { PDFDocument } = require('pdf-lib'); // Import pdf-lib
 
 dotenv.config();
 
@@ -19,125 +19,164 @@ const upload = multer({ dest: 'uploads/' });
 app.use(cors());
 app.use(express.json());
 
-// API Endpoint to handle image uploads and interact with Gemini model
-app.post('/upload-image', upload.single('image'), async (req, res) => {
+// Helper function to introduce a delay
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// API Endpoint to handle PDF uploads and interact with Gemini model
+app.post('/upload-pdf', upload.single('pdf'), async (req, res) => {
     if (!req.file) {
-        return res.status(400).json({ error: 'No image file uploaded' });
+        console.log("No file uploaded");
+        return res.status(400).json({ error: 'No PDF file uploaded' });
     }
 
-    const prompt = `
-        Sen görsel analiz yapan bir yardımcı asistansın.
-        Görevin, sana verilen her resim veya görselin hangi konu alanına ait olduğunu ve ilgili alt dallarını tespit etmektir.
+    const promptTemplate = `
+        Sen PDF dosyasında yer alan görselleri analiz eden bir yardımcı asistansın.
+        PDF içinde bulunan her sayfanın görseldeki sorularını veya ifadelerini ayrı ayrı analiz ederek, her birinin hangi konu alanına ve ilgili alt dallarına ait olduğunu tespit etmektir.
 
         Görevinin adımları:
-        1. Görseldeki her bir soruyu veya ifadeyi ayrı ayrı analiz et.
-        2. Her bir soru için aşağıdaki bilgileri sırasıyla belirle:
+        1. PDF'deki her sayfa sırayla analiz edilecek ve her sayfanın numarası verilecek.
+        2. Her sayfadaki her soruyu veya ifadeyi sırayla analiz ederek soru numarasını belirt.
+        3. Her soru için şu bilgileri ver:
+            - **Sayfa Numarası**: Hangi sayfada yer aldığı.
+            - **Soru Numarası**: Sayfadaki sırası.
+            - **Alan**: Hangi temel konuya ait? (Örneğin: Türk Dili ve Edebiyatı, Tarih, Matematik)
+            - **Alt alan**: Belirlenen konunun hangi alt dalına ait? (Örneğin: Matematik -> Üçgenler, Analitik Geometri)
+            - **Alt alt alan**: Daha spesifik bir alt başlık varsa belirt. (Örneğin: Trigonometri, Fonksiyonlar)
+            - **Teorem**: Sorunun çözümü için gerekliyse kullanılan teoremi belirt. (Örneğin: Sinüs Teoremi, Pythagoras Teoremi).
+            - **Temel bilgi**: Soruyu çözmek için bilinmesi gereken temel bilgi veya formülü belirt. (Örneğin: Üçgenlerin iç açılar toplamı, Fonksiyon tanımı).
 
-            - *Alan*: Hangi temel konuya ait? (Örneğin: Türk Dili ve Edebiyatı, Tarih, Matematik)
-            - *Alt alan*: Alan belirlendikten sonra, bu sorunun hangi alt dala ait olduğunu belirle. (Örneğin: Matematik alanında Üçgenler, Analitik Geometri)
-            - *Alt alt alan*: Daha spesifik bir alt başlık varsa belirle. (Örneğin: Trigonometri, Fonksiyonlar)
-            - *Teorem*: Sorunun çözümü için gerekli olan teoremi belirt (örneğin: Sinüs Teoremi, Pythagoras Teoremi).
-            - *Temel bilgi*: Soruyu çözmek için bilinmesi gereken en temel bilgiyi ekle. Bu, kavram veya formül gibi bilgilerdir. (Örneğin: Üçgenlerin iç açılar toplamı, Fonksiyonun tanımı).
-
-        Kapsamlı analiz yapman gereken temel alanlar:
-        - Türk Dili ve Edebiyatı
-        - Tarih
-        - Coğrafya
-        - Matematik
-        - Geometri
-        - Fizik
-        - Kimya
-        - Biyoloji
-        - Felsefe, Mantık, Sosyoloji, Psikoloji
-        - Din Kültürü ve Ahlak Bilgisi
-
-        *Örnek format*:
-        - Görselde ayrı ayrı bulunan soru sayısı: 3
-        - Alan: Geometri
-        - Alt alan: Üçgenler
-        - Alt alt alan: Trigonometri
-        - Teorem: Sinüs Teoremi
-        - Temel bilgi: Üçgenlerde açılar ve kenarlar arasındaki ilişkiler
-
-        Bu adımları dikkatle izleyerek görseldeki her bir soru için kapsamlı ve detaylı analiz yap.
-        Görsel Analizi:
+        **Sayfa Numarası**: {PAGE_NUMBER}
+        
+        Bu adımları dikkatle izleyerek PDF'deki her sayfa ve her soru için kapsamlı ve detaylı analiz yap.
     `;
 
-    const mimeType = req.file.mimetype;
-    const imagePath = req.file.path;
+    const pdfPath = req.file.path;
+    let combinedResponse = [];
 
     try {
-        // Step 1: Upload the image file using GoogleAIFileManager to get a file URI
-        const uploadResponse = await fileManager.uploadFile(imagePath, {
-            mimeType,
-            displayName: req.file.originalname,
-        });
-        const fileUri = uploadResponse.file.uri;
+        // Step 1: Read and split the PDF into individual pages
+        const pdfBytes = fs.readFileSync(pdfPath);
+        const pdfDoc = await PDFDocument.load(pdfBytes);
+        const numPages = pdfDoc.getPageCount();
 
-        // Step 2: Use the prompt and image to generate content
-        const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash"
-        });
+        console.log(`PDF contains ${numPages} pages.`);
 
-        // Generate content with both text and image
-        const result = await model.generateContent(
-            [
-                { fileData: { mimeType, fileUri } },
+        for (let i = 0; i < numPages; i++) {
+            console.log(`Processing Page ${i + 1}...`);
+
+            // Create a new PDF containing only the current page
+            const singlePagePdf = await PDFDocument.create();
+            const [copiedPage] = await singlePagePdf.copyPages(pdfDoc, [i]);
+            singlePagePdf.addPage(copiedPage);
+            const singlePagePdfBytes = await singlePagePdf.save();
+            const singlePagePath = `uploads/page_${i + 1}.pdf`;
+
+            // Save this single page as a temporary file
+            fs.writeFileSync(singlePagePath, singlePagePdfBytes);
+            console.log(`Saved single-page PDF for Page ${i + 1}: ${singlePagePath}, Size: ${singlePagePdfBytes.length} bytes`);
+
+            // Step 2: Upload the single-page PDF to GoogleAIFileManager
+            const uploadResponse = await fileManager.uploadFile(singlePagePath, {
+                mimeType: 'application/pdf',
+                displayName: `Page ${i + 1}`,
+            });
+            const fileUri = uploadResponse.file.uri;
+            console.log(`Uploaded Page ${i + 1} with URI: ${fileUri}`);
+
+            // Step 3: Customize the prompt for each page
+            const prompt = promptTemplate.replace('{PAGE_NUMBER}', i + 1);
+
+            // Step 4: Use the prompt and PDF URI to generate content
+            const model = genAI.getGenerativeModel({
+                model: "gemini-1.5-flash"
+            });
+
+            const result = await model.generateContent([
+                { fileData: { mimeType: 'application/pdf', fileUri } },
                 { text: prompt },
-            ]
-        );
+            ]);
 
-        // Get the generated content from the response
-        const text = result.response.text();
-        
-        // Parse the response into JSON structure for clarity
-        const parsedResponse = parseResponseToJSON(text);
-        
-        // Clean up the uploaded image file after processing
-        fs.unlinkSync(imagePath);
+            const text = result.response.text();
+            console.log(`Raw response for Page ${i + 1}:\n`, text);
 
-        // Send the response text back to the client
-        res.json({ response: parsedResponse });
+            // Inside your loop where you process each page
+            const parsedResponse = parseResponseToJSON(text);
+            console.log(`Parsed JSON for Page ${i + 1}:`, JSON.stringify(parsedResponse, null, 2));
+            combinedResponse.push({ page: i + 1, content: parsedResponse });
+
+            // Clean up the single-page PDF file
+            fs.unlinkSync(singlePagePath);
+
+            // Add a short delay before processing the next page
+            await delay(2000); // 2 seconds
+        }
+
+        // Clean up the original uploaded PDF file
+        fs.unlinkSync(pdfPath);
+
+        // Send the combined response back to the client
+        res.json({ response: combinedResponse });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to generate content from image and text.' });
+        console.error("Error in processing PDF:", error);
+        res.status(500).json({ error: 'Failed to process PDF.' });
     }
 });
 
 // Helper function to parse response text into JSON format
+
 function parseResponseToJSON(text) {
     const lines = text.split('\n').filter(line => line.trim() !== '');
     const responseObj = [];
-    let current = {};
+    let currentPage = null;
+    let currentQuestion = null;
 
     lines.forEach(line => {
-        if (line.includes('Alan:')) {
-            if (Object.keys(current).length > 0) responseObj.push(current);
-            current = { alan: line.split(':')[1].trim() };
-        } else if (line.includes('Alt alan:')) {
-            current.altAlan = line.split(':')[1].trim();
-        } else if (line.includes('Alt alt alan:')) {
-            current.altAltAlan = line.split(':')[1].trim();
-        } else if (line.includes('Teorem:')) {
-            current.teorem = line.split(':')[1].trim();
-        } else if (line.includes('Temel bilgi:')) {
-            current.temelBilgi = line.split(':')[1].trim();
+        line = line.trim();
+        
+        // Detect new page
+        if (line.startsWith('*Sayfa Numarası*:')) {
+            if (currentPage) responseObj.push(currentPage); // Save the previous page
+            
+            currentPage = {
+                sayfaNumarasi: line.split(':')[1].trim(),
+                sorular: []
+            };
+        }
+        
+        // Detect new question within the page
+        else if (line.startsWith('*Soru Numarası*:')) {
+            if (currentQuestion) currentPage.sorular.push(currentQuestion); // Save the previous question
+            
+            currentQuestion = {
+                soruNumarasi: line.split(':')[1].trim()
+            };
+        }
+        
+        // Parse details within the question
+        else if (line.startsWith('*Alan*:')) {
+            currentQuestion.alan = line.split(':')[1].trim();
+        } else if (line.startsWith('*Alt alan*:')) {
+            currentQuestion.altAlan = line.split(':')[1].trim();
+        } else if (line.startsWith('*Alt alt alan*:')) {
+            currentQuestion.altAltAlan = line.split(':')[1].trim();
+        } else if (line.startsWith('*Teorem*:')) {
+            currentQuestion.teorem = line.split(':')[1].trim();
+        } else if (line.startsWith('*Temel bilgi*:')) {
+            currentQuestion.temelBilgi = line.split(':')[1].trim();
         }
     });
 
-    // Add the last item if it exists
-    if (Object.keys(current).length > 0) responseObj.push(current);
+    // Push the last question and page into the response
+    if (currentQuestion) currentPage.sorular.push(currentQuestion);
+    if (currentPage) responseObj.push(currentPage);
 
     return responseObj;
 }
 
-// Serve the React app (for production)
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-    });
-}
+
+
+
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;
