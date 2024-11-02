@@ -61,11 +61,12 @@ Bu proje, Hackathon 2024 yarışmasına katılım amacıyla geliştirilmiştir. 
 Proje hakkında sorularınız veya önerileriniz için ekibimizle iletişime geçin:
 
 - **Halil Dönmez**: [thehalil.donmez@gmail.com](mailto:thehalil.donmez@gmail.com)
-- **LinkedIn**: [Halil Dönmez]([https://www.linkedin.com/in/halild%C3%B6nmez/]))
+- **LinkedIn**: [Halil Dönmez](https://www.linkedin.com/in/halild%C3%B6nmez/)
 - **Ahmet Hakan Altıparmak**: [ahmethakanaltiparmak@gmail.com](mailto:ahmethakanaltiparmak@gmail.com)
-- **LinkedIn**: [Ahmet Hakan Altıparmak]([https://www.linkedin.com/in/ahmet-hakan](https://www.linkedin.com/in/ahmet-hakan-alt%C4%B1parmak-94642721b/))
+- **LinkedIn**: [Ahmet Hakan Altıparmak](https://www.linkedin.com/in/ahmet-hakan-alt%C4%B1parmak-94642721b/)
 - **Alparslan Furkan Şahin**: [alparslanfurkansahin@gmail.com](mailto:alparslanfurkansahin@gmail.com)
-- **LinkedIn**: [Alparslan Furkan Şahin]([https://www.linkedin.com/in/alparslan-furkan-%C5%9Fahin-84919b1b8/])
+- **LinkedIn**: [Alparslan Furkan Şahin](https://www.linkedin.com/in/alparslan-furkan-%C5%9Fahin-84919b1b8/)
+
 
 ---
 
