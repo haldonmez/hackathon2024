@@ -1,5 +1,5 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../navbar/Navbar';
 import './ResponsePage.css';
 
@@ -20,17 +20,44 @@ const ALANLAR = [
 ];
 
 function ResponsePage() {
-    const location = useLocation();
+    const [response, setResponse] = useState([]);
+    const [visibleAlan, setVisibleAlan] = useState(null);
     const navigate = useNavigate();
-    const response = location.state?.response || [];
 
-    // Log the full location state and response for debugging
-    console.log("Location state:", location.state);
-    console.log("Response received:", response);
+    // PDF analiz sonuçlarını almak için API'ye istek atma
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const formData = new FormData();
+                formData.append('pdf', /* PDF dosyanız */);
 
-    const [visibleAlan, setVisibleAlan] = React.useState(null);
+                const response = await fetch('http://localhost:5000/upload-pdf', {
+                    method: 'POST',
+                    body: formData,
+                });
 
-    React.useEffect(() => {
+                const data = await response.json();
+                console.log("API yanıtı:", data); // Gelen veriyi konsola yazdırıyoruz
+
+                // Yanıt yapısını kontrol et
+                if (data && Array.isArray(data.content)) {
+                    setResponse(data.content); // Yanıtı state'e kaydediyoruz
+                } else {
+                    console.error("Beklenmedik yanıt yapısı:", data);
+                    setResponse([]); // Yanıt beklenmedik yapıda ise boş dizi olarak ayarla
+                }
+            } catch (error) {
+                console.error("API çağrısında hata oluştu:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        console.log("Gelen yanıt verileri:", response); // response güncellendiğinde yanıtı yazdırıyoruz
+
+        // Yanıtta belirli alanları kontrol etme
         const alanFromResponse = response
             .flatMap(page => page.sorular || [])
             .find(question => ALANLAR.includes(question?.alan));
