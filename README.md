@@ -56,8 +56,6 @@ Projenin ana sayfası ve analiz bölümü gibi önemli kısımları göstermek i
 ## Hackathon 2024
 Bu proje, Hackathon 2024 yarışmasına katılım amacıyla geliştirilmiştir. Yarışma sürecinde inovatif fikirler ve ekip çalışmasıyla en iyi çözümü sunmayı hedefledik. Yarışmanın amacı, teknoloji ve eğitim alanındaki zorlukları çözmek için yaratıcı çözümler üretmektir.
 
-## Lisans
-Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 
 ## İletişim
 Proje hakkında sorularınız veya önerileriniz için ekibimizle iletişime geçin:
