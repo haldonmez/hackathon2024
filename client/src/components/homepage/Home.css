@@ -1,11 +1,12 @@
 /* Navbar kapsayıcısı için düzenlemeler */
 .navbar-container {
-    padding: 0px;
+    padding: 0;
     margin: -20px;
 }
 
+/* Ana içerik alanı */
 .home-container {
-    padding-top: 60px;
+    padding-top: 60px; /* Navbar yüksekliği */
     margin: 0;
     padding-left: 0;
     padding-right: 0;
@@ -29,9 +30,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 50vh; /* Yükseklik ayarı */
 }
 
+/* Kahraman bölümündeki başlık ve paragraflar */
 .hero-section h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
@@ -64,7 +66,7 @@
     transform: scale(1.05);
 }
 
-/* Motivational section */
+/* Motivasyon bölümü */
 .motivational-section {
     display: flex;
     justify-content: center;
@@ -73,6 +75,7 @@
     animation: fadeInSection 1s ease-in-out;
 }
 
+/* Motivasyon kartları */
 .motive-card {
     max-width: 300px;
     background: #EEEEEE;
@@ -101,7 +104,7 @@
     color: #393E46;
 }
 
-/* Animations */
+/* Animasyonlar */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -130,41 +133,46 @@
 
 /* Responsive ayarlar */
 @media (max-width: 768px) {
+    .hero-section {
+        height: auto; /* Mobilde yükseklik otomatik olsun */
+        padding: 3rem 1rem; /* Daha fazla padding */
+    }
+
     .hero-section h1 {
-        font-size: 2.5rem;
+        font-size: 2.5rem; /* Başlık boyutu */
     }
 
     .hero-section p {
-        font-size: 1rem;
+        font-size: 1rem; /* Açıklama boyutu */
     }
 
     .motivational-section {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: column; /* Kartlar alt alta dizilmesi */
+        align-items: center; /* Ortalanacak */
         padding: 1rem 0;
     }
 
     .motive-card {
-        max-width: 90%;
-        margin-bottom: 1rem;
+        max-width: 90%; /* Kart genişliği */
+        margin-bottom: 1rem; /* Kartlar arasında boşluk */
     }
 }
 
 @media (max-width: 480px) {
     .hero-section h1 {
-        font-size: 2rem;
+        font-size: 2rem; /* Daha küçük başlık boyutu */
     }
 
     .hero-section p {
-        font-size: 0.9rem;
+        font-size: 0.9rem; /* Daha küçük açıklama boyutu */
     }
 
     .cta-button {
-        padding: 0.5rem 1.5rem;
-        font-size: 1rem;
+        padding: 0.5rem 1.5rem; /* Buton boyutları */
+        font-size: 1rem; /* Buton metni */
     }
 
     .motivational-section {
-        padding: 1rem 0;
+        padding: 1rem 0; /* Motivasyon bölümündeki padding */
     }
 }

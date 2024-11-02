@@ -16,22 +16,22 @@ const Home = () => {
             <Navbar />
             <div className="home-container">
                 <header className="hero-section">
-                    <h1>Geleceğini İnşa Et!</h1>
-                    <p>Gemini yapay zekasıyla başarı yolculuğuna çık. Hedeflerine ulaşmak için ilk adımı at!</p>
+                    <h1>Hedeflerine Ulaşmanın Zamanı!</h1>
+                    <p>Başarıya doğru emin adımlarla ilerleyin. Eksiklerinizi keşfedin ve güçlendirin!</p>
                     <button className="cta-button" onClick={handleStartClick}>Hemen Başla</button>
                 </header>
                 <section className="motivational-section">
                     <div className="motive-card">
-                        <h2>Bilgi Güçtür</h2>
-                        <p>Eğitim yolculuğunuzda doğru bilgiyi edinin ve kendinizi geliştirin.</p>
+                        <h2>Bilgi Analizleri</h2>
+                        <p>Yaptığınız soruların analizleriyle eksiklerinizi görün ve bilgi seviyenizi artırın.</p>
                     </div>
                     <div className="motive-card">
-                        <h2>Gelecek Seninle</h2>
-                        <p>Her sınav bir adım, her adım bir başarı. Sen de geleceğe yön ver!</p>
+                        <h2>Gelişim Adımları</h2>
+                        <p>Her sorunun ardından analizlerle ilerlemenizi takip edin. Başarıya giden yolda adımlarınızı güçlendirin!</p>
                     </div>
                     <div className="motive-card">
-                        <h2>Yapay Zeka ile Başarı</h2>
-                        <p>Eksiklerinizi analiz ederek ilerlemenizi hızlandırın.</p>
+                        <h2>Hedefe Ulaşma</h2>
+                        <p>Yanlış yaptığınız konuları belirleyin, eksiklerinizi tamamlayarak başarıya ulaşın.</p>
                     </div>
                 </section>
             </div>
