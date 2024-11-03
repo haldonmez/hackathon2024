@@ -88,7 +88,13 @@ def rag_process():
             return jsonify({"error": "No text provided"}), 400
 
         # Formulate the question based on the page content
-        question = f"{text} Bu soruları göze alarak hangi ders kazanımlarını taşıdıklarını açıklar mısın?"
+        question = f"""{text} Verilen Soru göz önünde bulunarak kazanımlarını tek tek her soru için belirle.
+                            Örnek Çıktı: 
+                                        **Sayfa Numarası**: Hangi sayfada yer aldığı.
+                                        **Soru Numarası**: Sorunun Bulunduğu sıra.
+                                        **Ana Konu**: Hangi temel konuya ait? (Örneğin: Türk Dili ve Edebiyatı, Tarih, Matematik).
+                                        **Alt Konu**: Belirlenen konunun hangi alt dalına ait? (Örneğin: Matematik -> Geometri, Analitik Geometri).
+                                        **Kazanımlar**: Tespit ettiğin kazanımlar. Her soru başına ayrı olmak üzere."""
 
         # Use the QA chain to process the query with the document context
         result = qa_chain({"query": question, "documents": [text]})
