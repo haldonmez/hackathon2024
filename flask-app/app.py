@@ -12,6 +12,7 @@ import os
 from google.oauth2 import service_account
 import google.generativeai as genai
 from flask_cors import CORS
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -19,11 +20,11 @@ CORS(app)
 # Set maximum request size to handle larger payloads (adjust as necessary)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB limit
 
-# Set the path to your service account key file
-SERVICE_ACCOUNT_FILE = "key\\service_account_key.json"
+# Load the JSON key from the environment variable
+service_account_info = json.loads(os.getenv("GOOGLE_SERVICE_ACCOUNT_KEY"))
 
-# Load credentials and set them for the API client
-credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE)
+# Create credentials using the service account information
+credentials = service_account.Credentials.from_service_account_info(service_account_info)
 
 # Configure Google Generative AI client with credentials
 genai.configure(credentials=credentials)
