@@ -39,7 +39,7 @@ model = ChatGoogleGenerativeAI(
 )
 
 # Load and process the PDF document
-pdf_loader = PyPDFLoader("py_scripts\\24095558_2024_yks.pdf")
+pdf_loader = PyPDFLoader("py_scripts/24095558_2024_yks.pdf")
 pages = pdf_loader.load_and_split()
 
 # Split text into chunks
