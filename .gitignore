@@ -18,3 +18,5 @@ client/build/
 .DS_Store
 
 service_account_key.json
+
+key/service_account_key.json
