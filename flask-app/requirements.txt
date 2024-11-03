@@ -31,6 +31,7 @@ comm==0.2.2
 configobj==5.0.9
 configparser==7.1.0
 contourpy==1.3.0
+cors==1.0.1
 cryptography==43.0.3
 cycler==0.12.1
 dataclasses-json==0.6.7
@@ -49,6 +50,8 @@ flatbuffers==24.3.25
 fonttools==4.53.1
 frozenlist==1.4.1
 fsspec==2024.9.0
+future==1.0.0
+gevent==24.10.3
 google-ai-generativelanguage==0.6.10
 google-api-core==2.22.0
 google-api-python-client==2.151.0
@@ -59,6 +62,7 @@ googleapis-common-protos==1.65.0
 greenlet==3.1.1
 grpcio==1.67.1
 grpcio-status==1.62.3
+gunicorn==23.0.0
 h11==0.14.0
 httpcore==1.0.6
 httplib2==0.22.0
@@ -159,6 +163,7 @@ pypdfium2==4.30.0
 PyPika==0.48.9
 pyproject_hooks==1.2.0
 pyreadline3==3.5.4
+PySocks==1.7.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 pytz==2024.2
@@ -170,6 +175,7 @@ ray==2.35.0
 rdflib==6.3.2
 referencing==0.35.1
 requests==2.32.3
+requests-file==2.1.0
 requests-oauthlib==2.0.0
 requests-toolbelt==1.0.0
 rich==13.9.4
@@ -189,6 +195,7 @@ starlette==0.41.2
 sympy==1.13.2
 tenacity==9.0.0
 threadpoolctl==3.5.0
+tldextract==5.1.2
 tokenizers==0.20.1
 tomli==2.0.2
 torch==2.4.1
@@ -212,3 +219,5 @@ widgetsnbextension==4.0.13
 wrapt==1.16.0
 yarl==1.17.1
 zipp==3.20.2
+zope.event==5.0
+zope.interface==7.1.1
