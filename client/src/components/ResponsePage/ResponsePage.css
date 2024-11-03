@@ -1,89 +1,68 @@
 .uygulama {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  padding: 0px;
+  margin: 0px;
 }
 
 .baslik {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 20px;
   text-align: center;
-  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 .kutu-container {
   display: flex;
-  flex-wrap: wrap; /* Gerektiğinde bir sonraki satıra geçmesini sağlar */
-  justify-content: center; /* Kutuları ortalar */
-  gap: 20px; /* Kutular arasında boşluk */
+  flex-direction: column;
+  gap: 10px;
 }
 
-.yanit-alani {
-  max-width: 600px; /* Maksimum genişlik ayarlandı */
-  width: 90%; /* Kutuların genişliği */
-  padding: 25px;
-  background-color: #f8f9fa;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  color: #333;
-  line-height: 1.6;
-  margin-bottom: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.sayfa-alani {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.yanit-alani:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  cursor: pointer;
+  background-color: #f1f1f1;
 }
 
-.alan {
-  font-size: 1.5rem; /* Daha büyük font boyutu */
-  font-weight: bold; /* Kalın yazı tipi */
-  text-align: center; /* Ortalanmış metin */
-  margin-bottom: 10px; /* Aşağıda boşluk */
-  list-style-type: none; 
+.toggle-icon {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.alt-alan {
-  font-size: 1.2rem; /* Alt alan için uygun boyut */
-  color: #007bff;
-  font-weight: 600;
+.card-content {
+  padding: 15px;
+  background-color: #fff;
+}
+
+.question {
   margin-bottom: 10px;
 }
 
-.bilgi-grubu p {
-  margin: 5px 0;
-  font-size: 1rem;
-  color: #555;
+.question ul {
+  padding-left: 20px;
 }
 
 .b {
-  background-color: #00ADB5;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: bold;
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
 }
 
-.b:hover {
-  background-color: #393E46;
-  transform: scale(1.05);
-}
-
-.bilgi-grubu {
-  margin: 10px 0;
-  padding: 10px;
-  background-color: #e3f2fd;
-  border-radius: 8px;
+.question-list {
   list-style-type: none;
+  padding: 0;
+}
+
+.question-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid
+
 }
