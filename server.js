@@ -102,7 +102,7 @@ app.post('/upload-pdf', upload.single('pdf'), async (req, res) => {
 
             // Send extracted text to Flask for further processing
             try {
-                const flaskUrl = process.env.FLASK_URL || 'https://young-bastion-01063-db81a8943551.herokuapp.com/rag-process';
+                const flaskUrl = process.env.FLASK_URL || 'https://rag-request-flask-a93b7745ce49.herokuapp.com/rag-process';
                 const flaskResponse = await axios.post(flaskUrl, {
                     page: i + 1,
                     text: extractedText
