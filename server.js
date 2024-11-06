@@ -7,6 +7,7 @@ const multer = require('multer'); // For file uploads
 const fs = require('fs');
 const axios = require('axios'); // For HTTP requests to Flask
 const { PDFDocument } = require('pdf-lib'); // Import pdf-lib
+const path = require('path');
 
 dotenv.config();
 
@@ -102,7 +103,7 @@ app.post('/upload-pdf', upload.single('pdf'), async (req, res) => {
             // Send extracted text to Flask for further processing
             try {
                 const flaskUrl = process.env.FLASK_URL || 'https://young-bastion-01063-db81a8943551.herokuapp.com/rag-process';
-                const flaskResponse = await axios.post(`${flaskUrl}`, {
+                const flaskResponse = await axios.post(flaskUrl, {
                     page: i + 1,
                     text: extractedText
                 });
@@ -131,6 +132,14 @@ app.post('/upload-pdf', upload.single('pdf'), async (req, res) => {
         console.error("Error in processing PDF:", error);
         res.status(500).json({ error: 'Failed to process PDF.' });
     }
+});
+
+// Serve static files from the React app's build folder
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Catch-all route to serve React app for any unknown path
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 // Start the server
