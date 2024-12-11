@@ -49,8 +49,8 @@ Projeyi kendi bilgisayarınızda çalıştırmak için:
 ## Ekran Görüntüleri
 Projenin ana sayfası ve analiz bölümü gibi önemli kısımları göstermek için bazı ekran görüntüleri ekleyin:
 
-![Ana Sayfa](screenshots\anasayfa.png)
-![Analiz Sayfası](screenshots\analiz-sayfasi.jpg)
+![Ana Sayfa](screenshots/anasayfa.png)
+![Analiz Sayfası](screenshots/analiz-sayfasi.jpg)
 
 
 ## Hackathon 2024
