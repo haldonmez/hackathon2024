@@ -12,7 +12,6 @@ logs
 
 # Heroku-specific build directories
 client/node_modules/
-client/build/
 
 # OS files
 .DS_Store
@@ -20,3 +19,9 @@ client/build/
 service_account_key.json
 
 key/service_account_key.json
+
+tree.txt
+
+flask-app/venv/
+
+backend\.env

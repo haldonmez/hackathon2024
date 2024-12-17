@@ -25,6 +25,11 @@ function ResponsePage() {
 
     // Helper function to parse content string into structured questions
     const parseContent = (content) => {
+        if (typeof content !== 'string') {
+            console.error("Content is not a string:", content);
+            return []; 
+        }
+
         const questionBlocks = content.split("**Sayfa Numarası**").filter(q => q.trim() !== "");
 
         return questionBlocks.map((questionText, index) => {

@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend  # Path to your backend folder (Dockerfile is in here)
+    ports:
+      - "5000:5000"  # Expose the backend port (adjust as needed)
+    volumes:
+      - ./backend:/app  # Mount the backend code to the container
+    command: ["npm", "start"]  # Command to run the backend
+    networks:
+      - my_network  # Connect to a shared network
+    env_file:
+      - ./backend/.env # Load environment variables from .env file in backend folder
+    depends_on: # Important: Make sure backend starts after flask
+      - flask
+
+  frontend:
+    build:
+      context: ./client  # Path to your frontend folder (Dockerfile is in here)
+    ports:
+      - "3000:3000"  # Expose the frontend port (adjust as needed)
+    volumes:
+      - ./client:/app  # Mount the frontend code to the container
+    command: ["npm", "start"]  # Command to run the frontend
+    networks:
+      - my_network  # Connect to a shared network
+
+  flask:
+    build:
+      context: ./flask-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./flask-app:/app
+    command: ["flask", "run", "--host=0.0.0.0", "--port=8000"]
+    networks:
+      - my_network  # Connect to a shared network
+
+networks:
+  my_network:  # Define a shared network for all services
+    driver: bridge
